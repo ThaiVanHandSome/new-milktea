@@ -30,7 +30,7 @@
                         <!-- ID Type -->
                         <div class="mb-3">
                             <label for="exampleInputTypeId" class="form-label">ID Type*</label> 
-                            <input placeholder="Type ID" name="idType" type="text" class="form-control" id="exampleInputTypeId" aria-describedby="typeIdHelp" value="${milkTeaType.idType}" ${loguser} required="required" disabled>
+                            <input placeholder="Type ID" name="idType" type="text" class="form-control" id="exampleInputTypeId" aria-describedby="typeIdHelp" value="${milkTeaType.idType}" ${loguser} required="required" readonly="readonly">
                         </div>
 
                         <!-- Name -->
@@ -42,7 +42,7 @@
                         <!-- ID Category -->
                         <div class="mb-3">
                             <label for="exampleInputCategoryId" class="form-label">ID Category*</label> 
-                            <input placeholder="Category ID" ${milkTeaType.isEdit ? 'readonly':'' } name="idCategory" type="text" class="form-control" id="exampleInputCategoryId" aria-describedby="categoryIdHelp" value="${milkTeaType.milkTeaCategoryByMilkTeaType.idCategory}" required="required">
+                            <input placeholder="Category ID" ${milkTeaType.isEdit ? 'readonly':'' } name="idCategory" type="text" class="form-control" id="exampleInputCategoryId" aria-describedby="categoryIdHelp" value="${milkTeaType.idCategory}" required="required">
                         </div>
 
                         <div class="text-end">

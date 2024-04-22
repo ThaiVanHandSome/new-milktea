@@ -1,5 +1,6 @@
 package hcmute.controller.admin;
 
+import hcmute.service.impl.ImageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -17,6 +18,7 @@ import hcmute.service.IBranchService;
 import hcmute.service.IStorageService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +32,9 @@ public class BranchAdminController {
 
 	@Autowired
 	private IStorageService storageService;
+
+	@Autowired
+	private ImageService imageService;
 
 	@GetMapping("")
 	public String indexViewBranch(ModelMap model) {
@@ -73,10 +78,13 @@ public class BranchAdminController {
 				entity.setIdCity(branch.getIdCity());
 			}
 			if (branch.getImageFile() !=null && !branch.getImageFile().isEmpty()) {
-				UUID uuid = UUID.randomUUID();
-				String uuString = uuid.toString();
-				entity.setImage(storageService.getStorageFilename(branch.getImageFile(), uuString));
-				storageService.store(branch.getImageFile(), entity.getImage());
+				try {
+					String imageUrl = imageService.uploadImage(branch.getImageFile());
+					System.out.println(imageUrl);
+					entity.setImage(imageUrl);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			branchService.save(entity);
 			String message = branch.getIsEdit() ? "Branch đã được cập nhật thành công"

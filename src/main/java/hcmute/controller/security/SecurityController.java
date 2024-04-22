@@ -1,5 +1,6 @@
 package hcmute.controller.security;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import hcmute.model.UserModel;
+import hcmute.service.impl.ImageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +53,9 @@ public class SecurityController {
 	CookieServiceImpl cookieService;
 	@Autowired
 	SessionServiceImpl sessionService;
+
+	@Autowired
+	private ImageService imageService;
 	
 //////////////Forgot-password//////////////
 	@GetMapping("forgot-password")
@@ -131,7 +137,7 @@ public class SecurityController {
 	}
 
 	@PostMapping("register")
-	public String register(Model model, @ModelAttribute UserEntity user, HttpServletRequest req)
+	public String register(Model model, @ModelAttribute UserModel user, HttpServletRequest req)
 			throws MessagingException {
 		Optional<UserEntity> existUserByEmail = userService.findByEmail(user.getEmail());
 		Optional<UserEntity> existUserByUsername = userService.findByUsername(user.getUsername());
@@ -143,9 +149,22 @@ public class SecurityController {
 			model.addAttribute("message", "Người dùng với username " + user.getUsername() + " đã được đăng ký trước đó");
 			return "security/register/register";
 		}
-		userService.register(user, CommonUtils.getSiteURL(req));
+		UserEntity entity = new UserEntity();
+		BeanUtils.copyProperties(user, entity);
+		if (user.getImageFile() !=null && !user.getImageFile().isEmpty()) {
+			try {
+				String imageUrl = imageService.uploadImage(user.getImageFile());
+				entity.setImageUrl(imageUrl);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			entity.setImageUrl("https://vectorified.com/images/default-avatar-icon-12.png");
+		}
+		userService.register(entity, CommonUtils.getSiteURL(req));
 		model.addAttribute("message", "Vui lòng kiếm tra email để xác nhận tại khoản của bạn");
 		return "security/register/register";
+
 	}
 //////////////Change-Password//////////////
 	@GetMapping("change-password")

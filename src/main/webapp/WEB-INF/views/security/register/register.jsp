@@ -45,7 +45,7 @@
 									<div class="alert alert-success">${message}</div>
 								</c:if>
 							</div>
-							<form action="/security/register" method="post"
+							<form action="/security/register" method="post"  enctype="multipart/form-data"
 								class="needs-validation" novalidate="true">
 
 								<div class="">
@@ -78,6 +78,16 @@
 											<option value="1">Nam</option>
 											<option value="0">Nữ</option>
 										</select>
+									</div>
+									<div class="mb-3">
+										<label for="exampleInputAvatar" style="margin-left: 2px" class="form-label">Avatar</label>
+										<div id="exampleInputAvatar">
+											<img class="hidden" src="https://vectorified.com/images/default-avatar-icon-12.png" id="image" width="200px" height="200px" style="border-radius: 50%"/>
+											<input
+													onchange="chooseFile(this)" placeholder="Image" name="imageFile"
+													type="file" class="form-control-file"
+													aria-describedby="imageFile">
+										</div>
 									</div>
 									<div class="mb-3  ">
 										<div class="form-floating">
@@ -142,6 +152,22 @@
 						</div>
 					</div>
 				</div>
+
+				<script type="text/javascript">
+					function chooseFile(fileInput) {
+						if (fileInput.files && fileInput.files[0]) {
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								document.querySelector("#image")
+										.setAttribute('src',
+												e.target.result);
+								document.querySelector("#image").classList
+										.remove("hidden");
+							}
+							reader.readAsDataURL(fileInput.files[0]);
+						}
+					}
+				</script>
 			</div>
 		</div>
 	</section>

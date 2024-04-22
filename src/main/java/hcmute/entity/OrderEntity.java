@@ -29,13 +29,13 @@ public class OrderEntity implements Serializable {
 	@Column(name = "final_price")
 	private int finalPrice;
 
-	@Column(name = "order_day", columnDefinition = "datetime2")
+	@Column(name = "order_day", columnDefinition = "datetime")
 	private LocalDateTime orderDay;
 
 	@Column(name = "order_state")
 	private int orderState;
 
-	@Column(name = "ship_day", columnDefinition = "datetime2")
+	@Column(name = "ship_day", columnDefinition = "datetime")
 	private LocalDateTime shipDay;
 	
 	@Column(name = "fee")

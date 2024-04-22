@@ -94,9 +94,9 @@ public class CustomerAdminController {
 		if (opt.isPresent()) {
 			UserEntity entity = opt.get();
 			BeanUtils.copyProperties(entity, user);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			String dateString = formatter.format(entity.getBirthday());
-			user.setBirthday(dateString);
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//			String dateString = formatter.format(entity.getBirthday());
+//			user.setBirthday(dateString);
 			user.setIsEdit(true);
 			model.addAttribute("customer", user);
 			return new ModelAndView("admin/customize/customize-customer", model);

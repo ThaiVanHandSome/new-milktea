@@ -1,11 +1,13 @@
 package hcmute.controller.admin;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import hcmute.service.impl.ImageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -45,6 +47,9 @@ public class MilkTeaAdminController {
 	@Autowired
 	private IMilkTeaTypeService milkTeaTypeService;
 
+	@Autowired
+	private ImageService imageService;
+
 	@GetMapping("")
 	public String IndexViewMilkTea(ModelMap model) {
 		List<MilkTeaEntity> milkTeas = milkTeaService.findAll();
@@ -64,7 +69,7 @@ public class MilkTeaAdminController {
 			BindingResult result,@RequestParam("imageFile") MultipartFile imageFile) {
 		
 		if (milkTea != null) {
-			MilkTeaEntity entity = new MilkTeaEntity();
+			MilkTeaEntity entity = milkTeaService.findById(milkTea.getIdMilkTea()).get();
 			if (milkTea.getName() != null) {
 				entity.setName(milkTea.getName());
 			}
@@ -78,10 +83,12 @@ public class MilkTeaAdminController {
 			Optional<MilkTeaTypeEntity> opt = milkTeaTypeService.findById(milkTea.getMilkTeaTypeId());
 			entity.setMilkTeaTypeByMilkTea(opt.get());
 			if(!milkTea.getImageFile().isEmpty()) {
-				UUID uuid = UUID.randomUUID();
-				String uuString = uuid.toString();
-				entity.setImage(storageService.getStorageFilename(milkTea.getImageFile(), uuString));
-				storageService.store(milkTea.getImageFile(), entity.getImage());
+				try {
+					String imageUrl = imageService.uploadImage(milkTea.getImageFile());
+					entity.setImage(imageUrl);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			milkTeaService.save(entity);
 			String message = milkTea.getIsEdit() ? "milkTea đã được cập nhật thành công"
@@ -108,12 +115,12 @@ public class MilkTeaAdminController {
 			MilkTeaEntity entity = opt.get();
 			BeanUtils.copyProperties(entity, milkTea);
 			milkTea.setIsEdit(true);
-			model.addAttribute("milk", milkTea);
+			milkTea.setMilkTeaTypeId(entity.getMilkTeaTypeByMilkTea().getIdType());
+			model.addAttribute("milkTea", milkTea);
 			return new ModelAndView("admin/customize/customize-milk-tea", model);
 		}
 
-		model.addAttribute("message", "Branch không tồn tại");
+		model.addAttribute("message", "Milktea không tồn tại");
 		return new ModelAndView("forward:/admin/milk-tea", model);
 	}
-
 }

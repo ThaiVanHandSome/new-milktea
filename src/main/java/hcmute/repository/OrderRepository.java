@@ -13,18 +13,19 @@ import hcmute.entity.OrderEntity;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Integer>{
 	// Statistics for each day of the current month
-	@Query(value="SELECT CAST(order_day AS DATE) AS order_date, SUM(final_price) AS total_price\r\n"
-			+ "FROM user_order\r\n"
-			+ "WHERE MONTH(order_day) = MONTH(GETDATE()) AND YEAR(order_day) = YEAR(GETDATE())\r\n"
-			+ "GROUP BY CAST(order_day AS DATE);" , nativeQuery = true)
+	@Query(value="SELECT DATE(order_day) AS order_date, SUM(final_price) AS total_price "
+			+ "FROM user_order "
+			+ "WHERE MONTH(order_day) = MONTH(CURRENT_DATE()) AND YEAR(order_day) = YEAR(CURRENT_DATE()) "
+			+ "GROUP BY DATE(order_day)", nativeQuery = true)
 	List<Object[]> getRevenueByDay();
-	
+
+
 	// Statistics for each month of the current year
-	@Query("SELECT MONTH(o.orderDay), SUM(o.finalPrice)FROM OrderEntity o "
-			+ "WHERE YEAR(o.orderDay) = YEAR(GETDATE()) "
+	@Query("SELECT MONTH(o.orderDay), SUM(o.finalPrice) FROM OrderEntity o "
+			+ "WHERE YEAR(o.orderDay) = YEAR(CURRENT_DATE()) "
 			+ "GROUP BY MONTH(o.orderDay)")
 	List<Object[]> getRevenueByMonth();
-	
+
 	@Query("SELECT o FROM OrderEntity o WHERE o.customerByOrder.id = :userId")
     List<OrderEntity> findAllOrdersByUserId(Integer userId);
 	

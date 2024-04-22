@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import hcmute.entity.MilkTeaEntity;
+import hcmute.model.MilkTeaModel;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import hcmute.entity.MilkTeaCategoryEntity;
@@ -66,5 +66,22 @@ public class MilkTeaTypeAdminController {
             model.addAttribute("message", "Không thể lưu milkTeaType với dữ liệu null");
         }
 		return new ModelAndView("redirect:/admin/milk-tea-type", model);
+	}
+
+	@GetMapping("edit/{idType}")
+	public ModelAndView edit(ModelMap model, @PathVariable("idType") int idType) {
+		Optional<MilkTeaTypeEntity> opt = milkTeaTypeService.findById(idType);
+		MilkTeaTypeModel milkTeaType = new MilkTeaTypeModel();
+		if (opt.isPresent()) {
+			MilkTeaTypeEntity entity = opt.get();
+			BeanUtils.copyProperties(entity, milkTeaType);
+			milkTeaType.setIsEdit(true);
+			milkTeaType.setIdCategory(entity.getMilkTeaCategoryByMilkTeaType().getIdCategory());
+			model.addAttribute("milkTeaType", milkTeaType);
+			return new ModelAndView("admin/customize/customize-milk-tea-type", model);
+		}
+
+		model.addAttribute("message", "Milktea type không tồn tại");
+		return new ModelAndView("forward:/admin/milk-tea", model);
 	}
 }

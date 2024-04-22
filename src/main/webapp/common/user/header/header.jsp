@@ -8,15 +8,18 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="hcmute.service.IMilkTeaCategoryService"%>
 <%@ page import="hcmute.service.IMilkTeaTypeService"%>
+<%@ page import="hcmute.service.IUserService"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page
 	import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@ page import="hcmute.entity.UserEntity" %>
 <%
 WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
 
 // Retrieve the beans
 IMilkTeaCategoryService milkTeaCategoryService = context.getBean(IMilkTeaCategoryService.class);
 IMilkTeaTypeService milkTeaTypeService = context.getBean(IMilkTeaTypeService.class);
+IUserService userService = context.getBean(IUserService.class);
 
 List<MilkTeaCategoryEntity> categories = milkTeaCategoryService.findAll();
 List<List<MilkTeaTypeEntity>> types = new ArrayList<>();
@@ -34,6 +37,8 @@ if (cookies != null) {
 	for (Cookie cookie : cookies) {
 		if ("USER_ID".equals(cookie.getName())) {
 	int idUser = Integer.parseInt(cookie.getValue());
+	UserEntity user = userService.findById(idUser).get();
+	request.setAttribute("user", user);
 	request.setAttribute("user_id", idUser);
 	break;
 		}
@@ -91,7 +96,7 @@ if (cookies != null) {
 		<div class="container-right">
 			<div class="header-info">
 				<img
-					src="https://scontent.fsgn8-4.fna.fbcdn.net/v/t39.30808-6/241464176_1242056446291086_5810272849317935739_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=2tzcJr-V8XwAX_Jrr1h&_nc_ht=scontent.fsgn8-4.fna&oh=00_AfAmVlLJ6-h-sZlmoma56shb3pX1V4kcYdrmo3ytCNKJsg&oe=657653CD"
+					src="${user.imageUrl}"
 					class="avatar" />
 				<p class="username">
 					<c:if test="${not empty pageContext.request.remoteUser}">

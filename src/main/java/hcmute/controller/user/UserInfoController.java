@@ -1,9 +1,11 @@
 package hcmute.controller.user;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import hcmute.service.impl.ImageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ public class UserInfoController {
 
 	@Autowired
 	IUserService userService;
+
+	@Autowired
+	ImageService imageService;
 
 	@GetMapping("/{user_id}")
 	public String viewuser(ModelMap model, @PathVariable("user_id") Integer userId) {
@@ -56,6 +61,15 @@ public class UserInfoController {
 				entity.setSurname(user.getSurname());
 				entity.setGender(user.getGender());
 				entity.setPhoneNumber(user.getPhoneNumber());
+
+				if (user.getImageFile() !=null && !user.getImageFile().isEmpty()) {
+					try {
+						String imageUrl = imageService.uploadImage(user.getImageFile());
+						entity.setImageUrl(imageUrl);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 
 				userService.save(entity);
 				redirectAttributes.addFlashAttribute("message", "Thông tin đã được cập nhật thành công!");

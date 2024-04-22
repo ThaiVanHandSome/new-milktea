@@ -24,6 +24,7 @@ import hcmute.entity.UserRoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -48,4 +49,5 @@ public class UserModel {
 	private Set<CartEntity> carts;
 	private Set<OrderEntity> orders;
 	private Boolean isEdit;
+	private MultipartFile imageFile;
 }

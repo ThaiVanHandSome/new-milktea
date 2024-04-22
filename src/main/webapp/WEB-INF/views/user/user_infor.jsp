@@ -57,7 +57,16 @@
 		</c:if>
 		<div class="user-infor-title">Thông tin tài khoản</div>
 		<div class="user-infor-container">
-			<form action="/user_infor/edit/${user.id}" method="post">
+			<form action="/user_infor/edit/${user.id}" method="post" enctype="multipart/form-data">
+				<div style="margin-bottom: 42px; display: flex; justify-content: center">
+					<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+						<img class="hidden" src="${user.imageUrl}" id="image" width="200px" height="200px" style="border-radius: 50%; margin-bottom: 12px"/>
+						<input
+								onchange="chooseFile(this)" placeholder="Image" name="imageFile"
+								type="file" class="form-control-file"
+								aria-describedby="imageFile">
+					</div>
+				</div>
 				<div class="user-infor user-name">Tên khách hàng</div>
 				<div class="user-infor user-name-textbox">
 					<input type="text" class="user-lastname-textbox textbox"
@@ -89,5 +98,21 @@
 
 	<script type="text/javascript"
 		src='<c:url value="/user/js/toast.js" />'></script>
+
+	<script type="text/javascript">
+		function chooseFile(fileInput) {
+			if (fileInput.files && fileInput.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					document.querySelector("#image")
+							.setAttribute('src',
+									e.target.result);
+					document.querySelector("#image").classList
+							.remove("hidden");
+				}
+				reader.readAsDataURL(fileInput.files[0]);
+			}
+		}
+	</script>
 </body>
 </html>

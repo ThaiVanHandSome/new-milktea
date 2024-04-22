@@ -43,34 +43,32 @@
 
 						<!-- ID BRANCH -->
 						<div class="mb-3">
-							<label for="exampleInputID" class="form-label">ID BRANCH*</label> <input placeholder="BRANCH ID"
+							<label for="exampleInputID1" class="form-label">ID BRANCH*</label> <input placeholder="BRANCH ID"
 								${branchMilkTea.isEdit ? 'readonly':''	} name="idBranch" type="text"
-								class="form-control" id="exampleInputID"
+								class="form-control" id="exampleInputID1"
 								aria-describedby="idHelp" value="${branchMilkTea.idBranch}"
 								required="required">
 						</div>
 						<!-- ID MILKTEA -->
 						<div class="mb-3">
-							<label for="exampleInputID" class="form-label">ID thành
-								phố*</label> <input placeholder="City ID"
+							<label for="exampleInputID2" class="form-label">ID Milktea*</label> <input placeholder="City ID"
 								${branchMilkTea.isEdit ? 'readonly':''	} name="idMilkTea" type="text"
-								class="form-control" id="exampleInputID"
+								class="form-control" id="exampleInputID2"
 								aria-describedby="idHelp" value="${branchMilkTea.idMilkTea}"
 								required="required">
 						</div>
 						<!-- size -->
 						<div class="mb-3">
-							<label for="exampleInputID" class="form-label">Size*</label> <input placeholder="City ID"
+							<label for="exampleInputID3" class="form-label">Size*</label> <input placeholder="City ID"
 								${branchMilkTea.isEdit ? 'readonly':''	} name="size" type="text"
-								class="form-control" id="exampleInputID"
+								class="form-control" id="exampleInputID3"
 								aria-describedby="idHelp" value="${branchMilkTea.size}"
 								required="required">
 						</div>
 						<!-- remainQuantity -->
 						<div class="mb-3">
-							<label for="exampleInputID" class="form-label">Số lượng*</label> <input placeholder="City ID"
-								${branchMilkTea.isEdit ? 'readonly':''	} name="idCity" type="text"
-								class="form-control" id="exampleInputID"
+							<label for="exampleInputID4" class="form-label">Số lượng*</label> <input placeholder="City ID" name="remainQuantity" type="text"
+								class="form-control" id="exampleInputID4"
 								aria-describedby="idHelp" value="${branchMilkTea.remainQuantity}"
 								required="required">
 						</div>

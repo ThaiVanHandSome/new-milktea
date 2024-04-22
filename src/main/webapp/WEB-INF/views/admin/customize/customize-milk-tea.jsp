@@ -45,7 +45,7 @@
 								Milk Tea*</label> <input placeholder="Milk Tea ID" name="idMilkTea"
 								type="text" class="form-control" id="exampleInputMilkTeaId"
 								aria-describedby="milkTeaIdHelp" value="${milkTea.idMilkTea}"
-								${loguser} required="required" disabled>
+								${loguser} required="required" readonly="readonly">
 						</div>
 
 						<!-- Name -->
@@ -81,7 +81,7 @@
 								${milkTea.isEdit ? 'readonly':'' } name="milkTeaTypeId"
 								type="text" class="form-control" id="exampleInputTypeId"
 								aria-describedby="typeIdHelp"
-								value="${milkTea.milkTeaTypeByMilkTea.idType}"
+								value="${milkTea.milkTeaTypeId}"
 								required="required">
 						</div>
 
@@ -104,12 +104,8 @@
 						<div class="mb-3" style="display: flex; flex-direction: column;">
 							<label for="exampleInputImage" class="form-label">Hình
 								ảnh*</label>
-							<c:url
-								value="/admin/branch/image/${milkTea.image != null ? milkTea.image : null }"
-								var="imgUrl" />
-							<input type="hidden" name="image" value="${milkTea.image}">
 							<img class="${milkTea.image == null ? 'hidden':''}" id="image"
-								width="200px" height="200px" src="${imgUrl}" /> <input
+								width="200px" height="200px" src="${milkTea.image}" /> <input
 								onchange="chooseFile(this)" placeholder="Image" name="imageFile"
 								type="file" class="form-control-file"
 								aria-describedby="imageFile">
