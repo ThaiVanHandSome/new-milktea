@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +38,7 @@
                         <div class="card-body p-md-5 p-sm-2">
                             <h2 class="fw-bold mb-4">Change Password</h2>
                             <form action="/security/change-password" method="post" style="min-width: fit-content;">
+                                <sec:csrfInput />
                                 <input type="hidden" name="token" value="${token}" />
                                 <div class=" rounded p-3">
                                     <div>

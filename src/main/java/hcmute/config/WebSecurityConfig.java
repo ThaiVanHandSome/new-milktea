@@ -80,8 +80,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// Cấu hình bảo mật HTTP
-		http.csrf().disable().cors();
 		// Phân quyền
 		http.authorizeRequests()
 				// Không cần xác thực

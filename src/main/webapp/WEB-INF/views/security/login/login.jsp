@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +27,7 @@
                     <div class="card rounded-4 shadow">
                         <div class="card-body p-md-5 p-sm-2">
                             <form action="/security/login" method="post">
+                                <sec:csrfInput />
                                 <h3 class="fw-bold mb-4 text-center">Sign in</h3>
                                 <div class="alert">
                                     <c:if test="${not empty message}">

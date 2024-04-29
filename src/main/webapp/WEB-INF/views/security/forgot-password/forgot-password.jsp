@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +26,7 @@
                             <h2 class="fw-bold mb-4">Forgot password</h2>
                             <form action="/security/forgot-password" method="post" class="needs-validation"
                                 novalidate="true" >
+                                <sec:csrfInput />
                                 <div class="mb-3">
                                     <div class="form-floating">
                                         <input type="email" class="form-control rounded-3" id="emailForgot"
