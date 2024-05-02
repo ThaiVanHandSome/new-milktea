@@ -54,29 +54,35 @@ public class ForgotPasswordServiceImpl implements IForgotPasswordService {
 
     @Override
     public void sendEmail(String recipientEmail, String link) {
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
+        // Kiểm tra xem recipientEmail có hợp lệ không
+        if (recipientEmail != null && !recipientEmail.isEmpty()) {
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
 
-        try {
-            helper.setTo(recipientEmail);
-            helper.setSubject("MilkTea - Reset password");
+            try {
+                helper.setTo(recipientEmail);
+                helper.setSubject("MilkTea - Reset password");
 
-            String content = "<html><body>"
-                    + "<p>Xin chào bạn,</p>"
-                    + "<p>Bạn đã yêu cầu đặt lại mật khẩu của mình.</p>"
-                    + "<p>Vui lòng nhấp vào liên kết bên dưới để thay đổi mật khẩu của bạn:</p>"
-                    + "<p><a href=\"" + link + "\">Change my password</a></p>"
-                    + "<br>"
-                    + "<p>Bỏ qua email này nếu bạn đã nhớ mật khẩu của mình hoặc bạn chưa thực hiên yêu cầu. </p"
-                    + "<p>Trân trọng!.</p>"
-                    + "</body></html>";
+                String content = "<html><body>"
+                        + "<p>Xin chào bạn,</p>"
+                        + "<p>Bạn đã yêu cầu đặt lại mật khẩu của mình.</p>"
+                        + "<p>Vui lòng nhấp vào liên kết bên dưới để thay đổi mật khẩu của bạn:</p>"
+                        + "<p><a href=\"" + link + "\">Change my password</a></p>"
+                        + "<br>"
+                        + "<p>Bỏ qua email này nếu bạn đã nhớ mật khẩu của mình hoặc bạn chưa thực hiên yêu cầu. </p"
+                        + "<p>Trân trọng!.</p>"
+                        + "</body></html>";
 
-            helper.setText(content, true); // Set the content as HTML
+                helper.setText(content, true); // Set the content as HTML
 
-            javaMailSender.send(message);
-        } catch (Exception e) {
-            e.printStackTrace();
+                javaMailSender.send(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Địa chỉ email không hợp lệ!");
         }
     }
+
 
 }
