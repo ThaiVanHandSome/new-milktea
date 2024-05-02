@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Security</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link href="<c:url value='/security/css/bootstrap.css'/>" rel="stylesheet" />
 <style type="text/css">
 .custom-center {
     margin-top:15px;
