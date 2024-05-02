@@ -116,11 +116,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					response.sendRedirect("/home");
 				}).failureUrl("/security/login");
 
-		// Cấu hình đăng nhập oauth2
-		http.oauth2Login().loginPage("/security/login").failureUrl("/security/login").authorizationEndpoint()
-				.baseUri("/oauth2/authorization").and().userInfoEndpoint().userService(oauthUserService).and()
-				.successHandler(oauthLoginSuccessHandler);
-
 		// Cấu hình remember me
 		http.rememberMe().tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) // expired after 21 days
 				.key("superhumanisnotsuperjustoverpowered").userDetailsService(service).rememberMeCookieName("USER_ID");
