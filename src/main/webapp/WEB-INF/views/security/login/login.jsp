@@ -10,7 +10,7 @@
     <link href="<c:url value='/security/css/bootstrap.css'/>" rel="stylesheet" />
 <%--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"--%>
 <%--        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">--%>
-<%--<style type="text/css">--%>
+<style type="text/css">
 .custom-center {
     margin-top:15px;
 }
@@ -57,8 +57,6 @@
                                 <div class="d-grid gap-2 mb-2">
                                     <button type="submit" id="submit" class="btn btn-lg rounded-3 btn-primary">Sign In</button>
                                 </div>
-                                <hr class="my-4">
-                                <h2 class="fs-5 fw-bold mb-3 text-center">Or</h2>
                             </form>
                         </div>
                     </div>

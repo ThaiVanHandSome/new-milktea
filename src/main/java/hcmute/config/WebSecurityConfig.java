@@ -26,8 +26,6 @@ import hcmute.entity.CartEntity;
 import hcmute.entity.UserEntity;
 import hcmute.security.CustomUserDetails;
 import hcmute.security.CustomUserDetailsService;
-import hcmute.security.oauth2.CustomOAuth2UserService;
-import hcmute.security.oauth2.OAuthLoginSuccessHandler;
 import hcmute.service.ICartService;
 import hcmute.service.IUserService;
 
@@ -41,10 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	IUserService userService;
 
-	@Autowired
-	private CustomOAuth2UserService oauthUserService;
-	@Autowired
-	private OAuthLoginSuccessHandler oauthLoginSuccessHandler;
 	@Autowired
 	ICartService cartService;
 
