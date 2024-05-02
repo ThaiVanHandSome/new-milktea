@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +40,7 @@
 					<form class="mt-3 ms-3 me-3 mb-3"
 						action="<c:url value="/admin/milk-tea/saveOrUpdate"/>" method="post"
 						enctype="multipart/form-data">
+						<sec:csrfInput />
 						<!-- ID Milk Tea -->
 						<div class="mb-3">
 							<label for="exampleInputMilkTeaId" class="form-label">ID

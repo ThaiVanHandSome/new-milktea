@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +27,7 @@
                 </ol>
                 <div class="card mb-4">
                     <form class="mt-3 ms-3 me-3 mb-3" action="<c:url value="/admin/city/saveOrUpdate"/>" method="post">
+                        <sec:csrfInput />
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="exampleInputName" class="form-label">Tên thành phố*</label> 

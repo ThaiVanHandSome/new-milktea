@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +41,7 @@
 					<form class="mt-3 ms-3 me-3 mb-3"
 						action="<c:url value="/admin/branch/saveOrUpdate"/>" method="post"
 						enctype="multipart/form-data">
+						<sec:csrfInput />
 						<input type="hidden" name="idBranch" value="${branch.idBranch}">
 						<!-- Name -->
 						<div class="mb-3">

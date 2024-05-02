@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,7 @@
 		<div class="user-infor-title">Thông tin tài khoản</div>
 		<div class="user-infor-container">
 			<form action="/user_infor/edit/${user.id}" method="post" enctype="multipart/form-data">
+				<sec:csrfInput />
 				<div style="margin-bottom: 42px; display: flex; justify-content: center">
 					<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 						<img class="hidden" src="${user.imageUrl}" id="image" width="200px" height="200px" style="border-radius: 50%; margin-bottom: 12px"/>
